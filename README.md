@@ -8,3 +8,4 @@
 Dockerhub [link](https://hub.docker.com/r/vaynerakawalo/ebiznes)
 
 - :white_check_mark: 3.0 Product controller [Link do commita 1]()
+- :white_check_mark: 3.5 Product crud  [Link do commita 1]()

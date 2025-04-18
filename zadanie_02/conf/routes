@@ -4,4 +4,8 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /products                        controllers.ProductController.listAll()
+GET           /products            controllers.ProductController.listAll()
+POST          /products            controllers.ProductController.create()
+PUT           /products/:id        controllers.ProductController.update(id: Long)
+GET           /products/:id        controllers.ProductController.getById(id: Long)
+DELETE        /products/:id        controllers.ProductController.delete(id: Long)
