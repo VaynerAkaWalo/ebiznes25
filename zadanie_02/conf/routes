@@ -4,8 +4,20 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET           /products            controllers.ProductController.listAll()
-POST          /products            controllers.ProductController.create()
-PUT           /products/:id        controllers.ProductController.update(id: Long)
-GET           /products/:id        controllers.ProductController.getById(id: Long)
-DELETE        /products/:id        controllers.ProductController.delete(id: Long)
+GET           /products              controllers.ProductController.listAll()
+POST          /products              controllers.ProductController.create()
+PUT           /products/:id          controllers.ProductController.update(id: Long)
+GET           /products/:id          controllers.ProductController.getById(id: Long)
+DELETE        /products/:id          controllers.ProductController.delete(id: Long)
+
+GET           /categories            controllers.CategoryController.listAll()
+POST          /categories            controllers.CategoryController.create()
+PUT           /categories/:id        controllers.CategoryController.update(id: Long)
+GET           /categories/:id        controllers.CategoryController.getById(id: Long)
+DELETE        /categories/:id        controllers.CategoryController.delete(id: Long)
+
+GET           /carts            controllers.CartController.listAll()
+POST          /carts            controllers.CartController.create()
+PUT           /carts/:id        controllers.CartController.update(id: Long)
+GET           /carts/:id        controllers.CartController.getById(id: Long)
+DELETE        /carts/:id        controllers.CartController.delete(id: Long)
