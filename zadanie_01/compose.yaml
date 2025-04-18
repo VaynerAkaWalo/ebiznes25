@@ -1,0 +1,6 @@
+services:
+  dockerfile:
+    build: .
+
+  dockerhub:
+    image: vaynerakawalo/ebiznes
