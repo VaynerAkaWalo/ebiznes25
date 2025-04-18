@@ -1,0 +1,4 @@
+ktor:
+  application:
+    modules:
+      - ebiznes.ApplicationKt.module
