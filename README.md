@@ -6,3 +6,5 @@
 - :white_check_mark: 5 docker compose [Link do commita 5](https://github.com/VaynerAkaWalo/ebiznes25/commit/af956b5966c1064e801a7406a277c9915a47bb8d)
 
 Dockerhub [link](https://hub.docker.com/r/vaynerakawalo/ebiznes)
+
+- :white_check_mark: 3.0 Product controller [Link do commita 1]()
