@@ -18,3 +18,13 @@ ENV PATH=/root/.sdkman/candidates/java/current/bin:$PATH
 ENV PATH=/root/.sdkman/candidates/kotlin/current/bin:$PATH
 
 CMD java -version && kotlinc -version
+
+RUN /bin/bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install gradle 8.13"
+
+ENV PATH=/root/.sdkman/candidates/gradle/current/bin:$PATH
+
+WORKDIR /app
+
+COPY . .
+
+CMD gradle run --no-daemon
