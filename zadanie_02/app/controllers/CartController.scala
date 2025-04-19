@@ -1,6 +1,6 @@
 package controllers
 
-import models.{Cart, Category, ErrorMessage}
+import models.{Cart, ErrorMessage}
 import play.api.libs.json._
 import play.api.mvc._
 
