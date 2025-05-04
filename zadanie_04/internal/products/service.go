@@ -6,8 +6,8 @@ import (
 
 type Product struct {
 	Id    string  `json:"id"`
-	Name  string  `json:"name"`
-	Price float64 `json:"price"`
+	Name  string  `json:"Name"`
+	Price float64 `json:"Price"`
 }
 
 type Dao interface {

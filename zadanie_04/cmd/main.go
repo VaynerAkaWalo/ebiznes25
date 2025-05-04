@@ -3,12 +3,20 @@ package main
 import (
 	"github.com/VaynerAkaWalo/ebiznes25/zadanie_04/internal/products"
 	"github.com/labstack/echo/v4"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
+	"log"
 )
 
 func main() {
 	e := echo.New()
 
-	productsDao := products.NewMemoryDao()
+	db, err := gorm.Open(sqlite.Open("db/products.db"), &gorm.Config{})
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	productsDao := products.NewGormDao(db)
 	productsService := products.NewProductService(&productsDao)
 
 	productsHandler := products.NewProductsHandler(productsService)
