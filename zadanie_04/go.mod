@@ -5,6 +5,8 @@ go 1.24.2
 require (
 	github.com/google/uuid v1.6.0
 	github.com/labstack/echo/v4 v4.13.3
+	gorm.io/driver/sqlite v1.5.7
+	gorm.io/gorm v1.26.0
 )
 
 require (
@@ -20,6 +22,5 @@ require (
 	golang.org/x/net v0.33.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
-	gorm.io/driver/sqlite v1.5.7 // indirect
-	gorm.io/gorm v1.26.0 // indirect
+	golang.org/x/time v0.8.0 // indirect
 )
