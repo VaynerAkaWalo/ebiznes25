@@ -26,4 +26,8 @@ Dockerhub [link](https://hub.docker.com/r/vaynerakawalo/ebiznes)
 - :white_check_mark: 3.5 Produkty grom [Link do commita 2]()
 - :white_check_mark: 4.0 Koszyk [Link do commita 2]()
 
+## Zadanie 05 React
+
+- :white_check_mark: 3.0 Produkty i Płatności integracja z zadaniem 04 [Link do commita 1]()
+
 

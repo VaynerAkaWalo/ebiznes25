@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/VaynerAkaWalo/ebiznes25/zadanie_04/internal/cart"
+	"github.com/VaynerAkaWalo/ebiznes25/zadanie_04/internal/payment"
 	"github.com/VaynerAkaWalo/ebiznes25/zadanie_04/internal/products"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -33,6 +34,9 @@ func main() {
 
 	cartHandler := cart.NewCartHandler(cartService)
 	cartHandler.RegisterRoutes(e)
+
+	paymentHandler := payment.NewPaymentHandler()
+	paymentHandler.RegisterRoutes(e)
 
 	e.Logger.Fatal(e.Start(":8000"))
 }
