@@ -24,13 +24,13 @@ func main() {
 	}
 
 	productsDao := products.NewGormDao(db)
-	productsService := products.NewProductService(&productsDao)
+	productsService := products.NewProductService(productsDao)
 
 	productsHandler := products.NewProductsHandler(productsService)
 	productsHandler.RegisterRoutes(e)
 
 	cartDao := cart.NewGormDao(db)
-	cartService := cart.NewCartService(&cartDao)
+	cartService := cart.NewCartService(cartDao)
 
 	cartHandler := cart.NewCartHandler(cartService)
 	cartHandler.RegisterRoutes(e)

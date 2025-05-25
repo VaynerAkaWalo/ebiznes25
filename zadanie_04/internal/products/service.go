@@ -22,9 +22,9 @@ type Service struct {
 	productDao Dao
 }
 
-func NewProductService(dao *Dao) *Service {
+func NewProductService(dao Dao) *Service {
 	return &Service{
-		productDao: *dao,
+		productDao: dao,
 	}
 }
 
