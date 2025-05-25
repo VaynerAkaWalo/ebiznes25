@@ -29,5 +29,8 @@ Dockerhub [link](https://hub.docker.com/r/vaynerakawalo/ebiznes)
 ## Zadanie 05 React
 
 - :white_check_mark: 3.0 Produkty i Płatności integracja z zadaniem 04 [Link do commita 1]()
+- :white_check_mark: 3.5 Koszyk i routing [Link do commita 2]()
+- :white_check_mark: 4 Komunikacja pomiedzy komponentami za pomoca react hook [Link do commita 3]()
+
 
 
