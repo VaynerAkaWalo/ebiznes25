@@ -147,15 +147,15 @@ export function PaymentPage() {
           </div>
         )}
         <div className="flex w-full py-4 justify-around [&>button]:border-2 [&>button]:w-1/3">
-          <button className="button" onClick={() => setSelectedProvider(-1)}>Back</button>
-          <button className="button" onClick={handlePay}>Pay</button>
+          <button className="button" onClick={() => setSelectedProvider(-1)}>Cofnij</button>
+          <button className="button" onClick={handlePay}>Zapłać</button>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="flex w-1/4 h-1/2 border-2">
+    <div data-test-id="payment-page" className="flex w-1/4 h-1/2 border-2">
       {selectedProvider === -1 && paymentProviderList()}
       {selectedProvider !== -1 && paymentModal()}
     </div>

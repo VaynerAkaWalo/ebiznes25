@@ -34,5 +34,9 @@ Dockerhub [link](https://hub.docker.com/r/vaynerakawalo/ebiznes)
 - :white_check_mark: 4.5 Docker compose [Link do commita 4]()
 - :white_check_mark: 5 Axios and cors [Link do commita 5]()
 
+## Zadanie 06 Tests 
+
+- :white_check_mark: 3.0 20 testów cypress js [Link do commita 1]()
+- :white_check_mark: 3.5 50 assercji [Link do commita 2]()
 
 
