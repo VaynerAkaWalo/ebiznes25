@@ -32,6 +32,7 @@ Dockerhub [link](https://hub.docker.com/r/vaynerakawalo/ebiznes)
 - :white_check_mark: 3.5 Koszyk i routing [Link do commita 2]()
 - :white_check_mark: 4 Komunikacja pomiedzy komponentami za pomoca react hook [Link do commita 3]()
 - :white_check_mark: 4.5 Docker compose [Link do commita 4]()
+- :white_check_mark: 5 Axios and cors [Link do commita 5]()
 
 
 
