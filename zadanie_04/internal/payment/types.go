@@ -17,3 +17,6 @@ type CardDetails struct {
 	ExpireTime string `json:"expireTime"`
 	CVV        int    `json:"CVV"`
 }
+
+type Test struct {
+}

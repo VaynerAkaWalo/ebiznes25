@@ -27,7 +27,10 @@ type GormDao struct {
 }
 
 func NewGormDao(db *gorm.DB) Dao {
-	db.AutoMigrate(&DBProduct{})
+	err := db.AutoMigrate(&DBProduct{})
+	if err != nil {
+		return nil
+	}
 
 	return &GormDao{
 		db: *db,
