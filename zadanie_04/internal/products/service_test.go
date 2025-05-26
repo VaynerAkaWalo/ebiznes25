@@ -7,6 +7,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const (
+	TestId = "test-id"
+)
+
 type MockDao struct {
 	products map[string]Product
 }
@@ -32,7 +36,7 @@ func (m *MockDao) getAll() ([]Product, error) {
 
 func (m *MockDao) create(name string, price float64) (Product, error) {
 	product := Product{
-		Id:    "test-id",
+		Id:    TestId,
 		Name:  name,
 		Price: price,
 	}
@@ -58,7 +62,7 @@ func (m *MockDao) delete(id string) (bool, error) {
 	return exists, nil
 }
 
-func TestService_GetById(t *testing.T) {
+func TestGetById(t *testing.T) {
 	mockDao := newMockDao()
 	service := NewProductService(mockDao)
 	ctx := echo.New().NewContext(nil, nil)
@@ -71,10 +75,10 @@ func TestService_GetById(t *testing.T) {
 	}{
 		{
 			name: "Product exists",
-			id:   "test-id",
+			id:   TestId,
 			setupMock: func() {
-				mockDao.products["test-id"] = Product{
-					Id:    "test-id",
+				mockDao.products[TestId] = Product{
+					Id:    TestId,
 					Name:  "Test Product",
 					Price: 10.99,
 				}
@@ -84,7 +88,7 @@ func TestService_GetById(t *testing.T) {
 		{
 			name:          "Product does not exist",
 			id:            "non-existent",
-			setupMock:     func() {},
+			setupMock:     func() { /*mock function*/ },
 			expectedError: true,
 		},
 	}
@@ -105,7 +109,7 @@ func TestService_GetById(t *testing.T) {
 	}
 }
 
-func TestService_GetAll(t *testing.T) {
+func TestGetAll(t *testing.T) {
 	mockDao := newMockDao()
 	service := NewProductService(mockDao)
 	ctx := echo.New().NewContext(nil, nil)
@@ -121,7 +125,7 @@ func TestService_GetAll(t *testing.T) {
 	assert.Equal(t, "Product 2", products[1].Name)
 }
 
-func TestService_Create(t *testing.T) {
+func TestCreate(t *testing.T) {
 	mockDao := newMockDao()
 	service := NewProductService(mockDao)
 	ctx := echo.New().NewContext(nil, nil)
@@ -134,32 +138,32 @@ func TestService_Create(t *testing.T) {
 	assert.NotEmpty(t, product.Id)
 }
 
-func TestService_Update(t *testing.T) {
+func TestUpdate(t *testing.T) {
 	mockDao := newMockDao()
 	service := NewProductService(mockDao)
 	ctx := echo.New().NewContext(nil, nil)
 
-	mockDao.products["test-id"] = Product{
-		Id:    "test-id",
+	mockDao.products[TestId] = Product{
+		Id:    TestId,
 		Name:  "Original Name",
 		Price: 10.99,
 	}
 
-	product, err := service.update(ctx, "test-id", "Updated Name", 20.99)
+	product, err := service.update(ctx, TestId, "Updated Name", 20.99)
 
 	assert.NoError(t, err)
 	assert.Equal(t, "Updated Name", product.Name)
 	assert.Equal(t, 20.99, product.Price)
-	assert.Equal(t, "test-id", product.Id)
+	assert.Equal(t, TestId, product.Id)
 }
 
-func TestService_Delete(t *testing.T) {
+func TestDelete(t *testing.T) {
 	mockDao := newMockDao()
 	service := NewProductService(mockDao)
 	ctx := echo.New().NewContext(nil, nil)
 
-	mockDao.products["test-id"] = Product{
-		Id:    "test-id",
+	mockDao.products[TestId] = Product{
+		Id:    TestId,
 		Name:  "Test Product",
 		Price: 10.99,
 	}
@@ -171,7 +175,7 @@ func TestService_Delete(t *testing.T) {
 	}{
 		{
 			name:          "Delete existing product",
-			id:            "test-id",
+			id:            TestId,
 			expectedFound: true,
 		},
 		{

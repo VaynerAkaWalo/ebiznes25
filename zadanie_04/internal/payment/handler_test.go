@@ -11,7 +11,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestHandler_CardPayment(t *testing.T) {
+const PaymentPath = "/payment/card"
+
+func TestCardPayment(t *testing.T) {
 	handler := NewPaymentHandler()
 	e := echo.New()
 
@@ -122,7 +124,7 @@ func TestHandler_CardPayment(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			reqBody, _ := json.Marshal(tt.request)
-			req := httptest.NewRequest(http.MethodPost, "/payment/card", bytes.NewReader(reqBody))
+			req := httptest.NewRequest(http.MethodPost, PaymentPath, bytes.NewReader(reqBody))
 			req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 			rec := httptest.NewRecorder()
 			c := e.NewContext(req, rec)
@@ -140,11 +142,11 @@ func TestHandler_CardPayment(t *testing.T) {
 	}
 }
 
-func TestHandler_CardPayment_InvalidJSON(t *testing.T) {
+func TestCardPaymentInvalidJson(t *testing.T) {
 	handler := NewPaymentHandler()
 	e := echo.New()
 
-	req := httptest.NewRequest(http.MethodPost, "/payment/card", bytes.NewReader([]byte("invalid json")))
+	req := httptest.NewRequest(http.MethodPost, PaymentPath, bytes.NewReader([]byte("invalid json")))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
@@ -157,11 +159,11 @@ func TestHandler_CardPayment_InvalidJSON(t *testing.T) {
 	assert.Equal(t, http.StatusBadRequest, he.Code)
 }
 
-func TestHandler_CardPayment_MissingContentType(t *testing.T) {
+func TestCardPaymentMissingContentType(t *testing.T) {
 	handler := NewPaymentHandler()
 	e := echo.New()
 
-	req := httptest.NewRequest(http.MethodPost, "/payment/card", bytes.NewReader([]byte("{}")))
+	req := httptest.NewRequest(http.MethodPost, PaymentPath, bytes.NewReader([]byte("{}")))
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
 

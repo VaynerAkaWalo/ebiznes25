@@ -4,6 +4,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+const UnknownError = "unknown error"
+
 type Product struct {
 	Id    string  `json:"id"`
 	Name  string  `json:"Name"`
@@ -31,7 +33,7 @@ func NewProductService(dao Dao) *Service {
 func (s *Service) getById(ctx echo.Context, id string) (Product, error) {
 	product, found, err := s.productDao.getById(id)
 	if err != nil {
-		return Product{}, echo.NewHTTPError(500, "unknown error", err)
+		return Product{}, echo.NewHTTPError(500, UnknownError, err)
 	}
 
 	if !found {
@@ -44,7 +46,7 @@ func (s *Service) getById(ctx echo.Context, id string) (Product, error) {
 func (s *Service) getAll(ctx echo.Context) ([]Product, error) {
 	products, err := s.productDao.getAll()
 	if err != nil {
-		return nil, echo.NewHTTPError(500, "unknown error", err)
+		return nil, echo.NewHTTPError(500, UnknownError, err)
 	}
 	return products, nil
 }
@@ -52,7 +54,7 @@ func (s *Service) getAll(ctx echo.Context) ([]Product, error) {
 func (s *Service) create(ctx echo.Context, name string, price float64) (Product, error) {
 	product, err := s.productDao.create(name, price)
 	if err != nil {
-		return Product{}, echo.NewHTTPError(500, "unknown error", err)
+		return Product{}, echo.NewHTTPError(500, UnknownError, err)
 	}
 
 	return product, nil
@@ -61,7 +63,7 @@ func (s *Service) create(ctx echo.Context, name string, price float64) (Product,
 func (s *Service) update(ctx echo.Context, id string, name string, price float64) (Product, error) {
 	product, err := s.productDao.update(id, name, price)
 	if err != nil {
-		return Product{}, echo.NewHTTPError(500, "unknown error", err)
+		return Product{}, echo.NewHTTPError(500, UnknownError, err)
 	}
 	return product, nil
 }
@@ -69,7 +71,7 @@ func (s *Service) update(ctx echo.Context, id string, name string, price float64
 func (s *Service) delete(ctx echo.Context, id string) (bool, error) {
 	found, err := s.productDao.delete(id)
 	if err != nil {
-		return false, echo.NewHTTPError(500, "unknown error", err)
+		return false, echo.NewHTTPError(500, UnknownError, err)
 	}
 
 	return found, nil

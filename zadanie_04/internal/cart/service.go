@@ -1,10 +1,13 @@
 package cart
 
 import (
+	"errors"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"slices"
 )
+
+const UnknownError = "unknown error"
 
 type Cart struct {
 	Id         string   `json:"id"`
@@ -31,12 +34,12 @@ func NewCartService(dao Dao) *Service {
 func (s *Service) getCurrentCart(ctx echo.Context, customerId string) (Cart, error) {
 	cart, found, err := s.cartDao.getNewestByCustomerId(customerId)
 	if err != nil {
-		return Cart{}, echo.NewHTTPError(500, "unknown error")
+		return Cart{}, echo.NewHTTPError(500, UnknownError)
 	}
 	if !found {
 		newCart, err := s.cartDao.create(customerId)
 		if err != nil {
-			return Cart{}, echo.NewHTTPError(500, "unknown error")
+			return Cart{}, echo.NewHTTPError(500, UnknownError)
 		}
 		return newCart, nil
 	}
@@ -56,7 +59,7 @@ func (s *Service) addProduct(ctx echo.Context, customerId string, productId stri
 
 	cart, err = s.cartDao.updateProducts(cart.Id, newProducts)
 	if err != nil {
-		return Cart{}, fmt.Errorf("unknown error")
+		return Cart{}, errors.New(UnknownError)
 	}
 
 	return cart, nil
@@ -76,7 +79,7 @@ func (s *Service) removeProduct(ctx echo.Context, customerId string, productId s
 
 	cart, err = s.cartDao.updateProducts(cart.Id, newProducts)
 	if err != nil {
-		return Cart{}, fmt.Errorf("unknown error")
+		return Cart{}, errors.New(UnknownError)
 	}
 
 	return cart, nil
@@ -90,7 +93,7 @@ func (s *Service) clearCart(ctx echo.Context, customerId string) (Cart, error) {
 
 	cart, err = s.cartDao.updateProducts(cart.Id, []string{})
 	if err != nil {
-		return Cart{}, fmt.Errorf("unknown error")
+		return Cart{}, errors.New(UnknownError)
 	}
 
 	return cart, nil

@@ -83,7 +83,7 @@ func (dao *GormDao) updateProducts(cartId string, productIds []string) (Cart, er
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return Cart{}, fmt.Errorf("cart not found")
 		}
-		return Cart{}, fmt.Errorf("unknown error")
+		return Cart{}, errors.New(UnknownError)
 	}
 
 	dbCart.Products = strings.Join(productIds, ",")

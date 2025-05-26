@@ -7,6 +7,13 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const (
+	CustomerOne = "customer-1"
+	ProductOne  = "product-1"
+	ProductTwo  = "product-2"
+	CartOne     = "cart-1"
+)
+
 type MockDao struct {
 	carts map[string]Cart
 }
@@ -46,7 +53,7 @@ func (m *MockDao) updateProducts(cartId string, productsIds []string) (Cart, err
 	return cart, nil
 }
 
-func TestService_GetCurrentCart(t *testing.T) {
+func TestGetCurrentCart(t *testing.T) {
 	mockDao := newMockDao()
 	service := NewCartService(mockDao)
 	ctx := echo.New().NewContext(nil, nil)
@@ -59,12 +66,12 @@ func TestService_GetCurrentCart(t *testing.T) {
 	}{
 		{
 			name:       "Existing cart",
-			customerId: "customer-1",
+			customerId: CustomerOne,
 			setupMock: func() {
-				mockDao.carts["cart-1"] = Cart{
-					Id:         "cart-1",
-					Products:   []string{"product-1"},
-					CustomerId: "customer-1",
+				mockDao.carts[CartOne] = Cart{
+					Id:         CartOne,
+					Products:   []string{ProductOne},
+					CustomerId: CustomerOne,
 				}
 			},
 			expectedError: false,
@@ -72,7 +79,7 @@ func TestService_GetCurrentCart(t *testing.T) {
 		{
 			name:          "New cart",
 			customerId:    "customer-2",
-			setupMock:     func() {},
+			setupMock:     func() { /*mock function*/ },
 			expectedError: false,
 		},
 	}
@@ -93,56 +100,56 @@ func TestService_GetCurrentCart(t *testing.T) {
 	}
 }
 
-func TestService_AddProduct(t *testing.T) {
+func TestAddProduct(t *testing.T) {
 	mockDao := newMockDao()
 	service := NewCartService(mockDao)
 	ctx := echo.New().NewContext(nil, nil)
 
-	mockDao.carts["cart-1"] = Cart{
-		Id:         "cart-1",
-		Products:   []string{"product-1"},
-		CustomerId: "customer-1",
+	mockDao.carts[CartOne] = Cart{
+		Id:         CartOne,
+		Products:   []string{ProductOne},
+		CustomerId: CustomerOne,
 	}
 
-	cart, err := service.addProduct(ctx, "customer-1", "product-2")
+	cart, err := service.addProduct(ctx, CustomerOne, ProductTwo)
 
 	assert.NoError(t, err)
 	assert.Len(t, cart.Products, 2)
-	assert.Contains(t, cart.Products, "product-1")
-	assert.Contains(t, cart.Products, "product-2")
+	assert.Contains(t, cart.Products, ProductOne)
+	assert.Contains(t, cart.Products, ProductTwo)
 }
 
-func TestService_RemoveProduct(t *testing.T) {
+func TestRemoveProduct(t *testing.T) {
 	mockDao := newMockDao()
 	service := NewCartService(mockDao)
 	ctx := echo.New().NewContext(nil, nil)
 
-	mockDao.carts["cart-1"] = Cart{
-		Id:         "cart-1",
-		Products:   []string{"product-1", "product-2"},
-		CustomerId: "customer-1",
+	mockDao.carts[CartOne] = Cart{
+		Id:         CartOne,
+		Products:   []string{ProductOne, ProductTwo},
+		CustomerId: CustomerOne,
 	}
 
-	cart, err := service.removeProduct(ctx, "customer-1", "product-1")
+	cart, err := service.removeProduct(ctx, CustomerOne, ProductOne)
 
 	assert.NoError(t, err)
 	assert.Len(t, cart.Products, 1)
-	assert.Contains(t, cart.Products, "product-2")
-	assert.NotContains(t, cart.Products, "product-1")
+	assert.Contains(t, cart.Products, ProductTwo)
+	assert.NotContains(t, cart.Products, ProductOne)
 }
 
-func TestService_ClearCart(t *testing.T) {
+func TestClearCart(t *testing.T) {
 	mockDao := newMockDao()
 	service := NewCartService(mockDao)
 	ctx := echo.New().NewContext(nil, nil)
 
-	mockDao.carts["cart-1"] = Cart{
-		Id:         "cart-1",
-		Products:   []string{"product-1", "product-2"},
-		CustomerId: "customer-1",
+	mockDao.carts[CartOne] = Cart{
+		Id:         CartOne,
+		Products:   []string{ProductOne, ProductTwo},
+		CustomerId: CustomerOne,
 	}
 
-	cart, err := service.clearCart(ctx, "customer-1")
+	cart, err := service.clearCart(ctx, CustomerOne)
 
 	assert.NoError(t, err)
 	assert.Empty(t, cart.Products)

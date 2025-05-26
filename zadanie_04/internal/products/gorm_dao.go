@@ -7,6 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
+const InvalidIdError = "invalid id"
+
 type DBProduct struct {
 	gorm.Model
 	ID    uuid.UUID `gorm:"primaryKey;type:uuid"`
@@ -40,7 +42,7 @@ func NewGormDao(db *gorm.DB) Dao {
 func (dao *GormDao) getById(id string) (Product, bool, error) {
 	dbId, err := uuid.Parse(id)
 	if err != nil {
-		return Product{}, false, fmt.Errorf("invalid id")
+		return Product{}, false, errors.New(InvalidIdError)
 	}
 
 	var dbProduct DBProduct
@@ -49,7 +51,7 @@ func (dao *GormDao) getById(id string) (Product, bool, error) {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return Product{}, false, nil
 		}
-		return Product{}, false, fmt.Errorf("unknown error")
+		return Product{}, false, errors.New(UnknownError)
 	}
 
 	return dbProduct.product(), true, nil
@@ -59,7 +61,7 @@ func (dao *GormDao) getAll() ([]Product, error) {
 	var dbProducts []DBProduct
 	res := dao.db.Find(&dbProducts)
 	if res.Error != nil {
-		return nil, fmt.Errorf("unknown error")
+		return nil, errors.New(UnknownError)
 	}
 
 	var products []Product
@@ -88,7 +90,7 @@ func (dao *GormDao) create(name string, price float64) (Product, error) {
 func (dao *GormDao) update(id string, name string, price float64) (Product, error) {
 	dbId, err := uuid.Parse(id)
 	if err != nil {
-		return Product{}, fmt.Errorf("invalid id")
+		return Product{}, errors.New(InvalidIdError)
 	}
 
 	var dbProduct DBProduct
@@ -97,7 +99,7 @@ func (dao *GormDao) update(id string, name string, price float64) (Product, erro
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return Product{}, fmt.Errorf("product not found")
 		}
-		return Product{}, fmt.Errorf("unknown error")
+		return Product{}, errors.New(UnknownError)
 	}
 
 	dbProduct.Name = name
@@ -110,12 +112,12 @@ func (dao *GormDao) update(id string, name string, price float64) (Product, erro
 func (dao *GormDao) delete(id string) (bool, error) {
 	dbId, err := uuid.Parse(id)
 	if err != nil {
-		return false, fmt.Errorf("invalid id")
+		return false, errors.New(InvalidIdError)
 	}
 
 	res := dao.db.Delete(&DBProduct{}, dbId)
 	if res.Error != nil {
-		return false, fmt.Errorf("unknown error")
+		return false, errors.New(UnknownError)
 	}
 
 	if res.RowsAffected == 0 {

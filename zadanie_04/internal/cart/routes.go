@@ -22,7 +22,7 @@ func (h *Handler) RegisterRoutes(e *echo.Echo) {
 func (h *Handler) getCurrentCart(ctx echo.Context) error {
 	cart, err := h.cartService.getCurrentCart(ctx, ctx.QueryParam("userId"))
 	if err != nil {
-		return echo.NewHTTPError(500, "unknown error")
+		return echo.NewHTTPError(500, UnknownError)
 	}
 
 	return ctx.JSON(200, cart)
@@ -31,7 +31,7 @@ func (h *Handler) getCurrentCart(ctx echo.Context) error {
 func (h *Handler) addProduct(ctx echo.Context) error {
 	cart, err := h.cartService.addProduct(ctx, ctx.QueryParam("userId"), ctx.Param("product"))
 	if err != nil {
-		return echo.NewHTTPError(500, "unknown error")
+		return echo.NewHTTPError(500, UnknownError)
 	}
 
 	return ctx.JSON(200, cart)
@@ -40,7 +40,7 @@ func (h *Handler) addProduct(ctx echo.Context) error {
 func (h *Handler) removeProduct(ctx echo.Context) error {
 	cart, err := h.cartService.removeProduct(ctx, ctx.QueryParam("userId"), ctx.Param("product"))
 	if err != nil {
-		return echo.NewHTTPError(500, "unknown error")
+		return echo.NewHTTPError(500, UnknownError)
 	}
 
 	return ctx.JSON(200, cart)
@@ -49,7 +49,7 @@ func (h *Handler) removeProduct(ctx echo.Context) error {
 func (h *Handler) clearCart(ctx echo.Context) error {
 	cart, err := h.cartService.clearCart(ctx, ctx.QueryParam("userId"))
 	if err != nil {
-		return echo.NewHTTPError(500, "unknown error")
+		return echo.NewHTTPError(500, UnknownError)
 	}
 
 	return ctx.JSON(200, cart)
