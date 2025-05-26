@@ -41,6 +41,7 @@ Dockerhub [link](https://hub.docker.com/r/vaynerakawalo/ebiznes)
 - :white_check_mark: 4.0 Testy jednostkowe zadanie 4 [Link do commita 3]()
 
 ## Zadanie 07 Sonar
+
 - :white_check_mark: 3.0 golangci-lint [Link do commita 1]()
 - :white_check_mark: 3.5 Naprawa bugów - nie bylo zadnego [Link do commita 2]()
 - :white_check_mark: 4.0 Naprawa code smell [Link do commita 3]()
